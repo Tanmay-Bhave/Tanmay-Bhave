@@ -1,0 +1,132 @@
+Q2. Demonstrate your application to deploy on S3 /SEBS using AVVS Codepipeline. 
+
+Create & configure S3 bucket
+Step 1: Go to S3 in AWS console 
+Step 2: click on create bucket
+Step 3: Name The bucket , uncheck The block public
+        settings, keep rest as it is -> create bucket
+Step 4: Go into your new bucket > click on The
+        properties
+Step 5: Scroll down to static website hosting & click
+        Edit
+Step 6: Click Enable, set index document To index.html
+        Save changes
+Step 7: Go To permission, Click Edit under bucket policy
+        Write This policy.
+
+Policy example > 4th
+For sample, make changes
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::codepipeline-q2/*"
+    }
+  ]
+}
+
+Save Changes
+
+AWS CodePipeline
+Step 1: Go to CodePipeline
+Step 2: Create Pipeline > build custom pipeline -> Next
+Step 3: Name pipeline -> Rest same => Next
+Step 4: Source stage
+        source provider -> Github (via Git Hub App) ->
+        Connect to Github -> Name the connection ->
+        Connect Github #
+Step 5: Repository name -> Default branch (master) ->
+        Tick start us pipeline on push & pull request events -> Next.
+step 6: Bulid stage
+        other bulid provider -> AWS codeBulid
+        Create project
+        Project name
+        Environment image : Managed image
+        Os : Amazon linux =
+        Runtime : standard
+        Image: aws/codebuild /amazonlinux x86.64
+        Build spec - select - Use a build spec File > Next
+Step 7: Skip Test stage
+        Deploy provider : Amazon S3
+        Region: US (N. Virginia)
+        bucket > we create bucket
+        Check Extract file before deploy. - > Next
+
+
+Q4) Install Terraform en windows machine. Build, apply, destroy AVIS EC2 using errazam
+
+Step 1: EC2 check no instance is running
+Step 2: IAM - user - create user - name it → attach policy - click on adminstrator access → create user
+Step 3: click on the user created - create access key → Click CLI→ skip disc tag - copy access and select key - done
+Step 4: Open vs code create file with tf
+
+provider "aws" {
+  access_key = ""
+  secret_key = ""
+  region     = "us-east-1"
+}
+resource "aws_instance" "terra_XIE" {
+  ami           = "ami-" (Go to EC2 - launch instance - ubantu )
+  instance_type = "t3.micro"
+}
+
+
+terrafom init
+terrafom plan - check instance (instance 0)
+terrafom apply (instance 1)
+terrafom destroy 
+
+Q5. SonarQube using python /java
+step 1: download SonarQube from browser.
+step 2: extract the folder in C drive.
+step 3: set path environment variable(set path as:D:\SonarQube\sonarqube-25.10.0.114319\bin)
+step4: open chrome and go to https://localhost:9000. SonarQube will open. go to dashboard.
+step 5: create project-> give name ->create project->setup new code: follow instance default project (1st option).
+step 6: select locally->generate the token->copy the token id.
+step 7: click continue.click on others->select windows-> copy the command.
+step 8: download sonarscanner.create new folder
+step 9: download SonarQube from browser.
+step 10: extract the folder in C drive.
+step 11: set path environment variable(set path as:D:\SonarQube\sonarqube-25.10.0.114319\bin)
+step 12: open folder extracted Sonarscanner->conf ->properties:
+type this code:
+sonar.projectKey=Test
+sonar.projectName=Test
+sonar.projectVersion=1.0
+sonar.sources=D:\SonarScanner\sonar-scanner-7.3.0.5189-windows-x64\conf
+sonar.token=sqp_4932d0c8397c8f6984aea792c6e6d60b3e2cb315
+sonar.login=admin
+save file
+step 13:sAave folder in conf ->create py file->print hello world bc.
+
+
+
+Q7. Create Hello world Lambda function using Python.
+Q9. Create AWS Lambda function to log “I got output”
+
+Step 1: Search Lambda
+Step 2: Create function - function name - Select - python - Create
+Step 3: Dismiss the tab.
+Step 4: Code generated - change as per question in("Hello world")section
+Step 5: Deploy
+Step 6: Than create a test event & give name to test event - save - test
+Step 7: Then click test button below deploy. It should appear succeeded & Display output.
+Step 8: Go to CloudWatch - logs - log group - 
+
+In Q7 Display Hello world.
+In Q9 Display I got output
+
+
+Q8.Create AWS Lambda function to log “an object has been added” on adding the object to s3 bucket. 
+
+Step 1: Go to S3
+Step 2: Create bucket -  name the bucket - Create bucket
+Step 3: Lamda - Lambda console - create function - function name - python - Create function - give code → Doploy
+Step 4: Lambda pase - configuration - Triggers - Add trigger - choseS3 - upload created bucket - Type - All object - At end - Create events - enable check box
+Step 5 : Click search S3 - go to bucket - Created - upload - choose file - upload
+
